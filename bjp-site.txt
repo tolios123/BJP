@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B.J.P - Basic Jewellery Products | Μηχανήματα & Αναλώσιμα Αργυροχρυσοχοΐας</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bjp: {
+              50: '#f0f4fa',
+              100: '#dbe5f3',
+              600: '#002060',
+              700: '#001848',
+              800: '#001030',
+              dark: '#000818',
+            },
+            accent: '#d97706'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+    }
+    .drawer-transition {
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+  <!-- TOP HEADER & NAVBAR -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        
+        <!-- Left: Drawer Toggle Button -->
+        <div class="flex items-center space-x-4">
+          <button id="openDrawer" class="p-2 rounded-lg text-bjp-600 hover:bg-blue-50 focus:outline-none flex items-center gap-2 font-medium">
+            <i class="fa-solid fa-bars text-2xl"></i>
+            <span class="hidden md:inline text-sm uppercase tracking-wider font-semibold">Μενού & Κατηγορίες</span>
+          </button>
+        </div>
+
+        <!-- Center: Logo (Classic B.J.P restored styling) -->
+        <div class="flex-1 flex justify-center">
+          <a href="#" class="flex flex-col items-center">
+            <div class="text-3xl font-extrabold tracking-widest text-bjp-600 font-serif border-b-2 border-bjp-600 px-3 py-0.5">
+              B.J.P
+            </div>
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest text-gray-600 font-bold mt-1">Basic Jewellery Products</span>
+          </a>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="flex items-center space-x-3">
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-bjp-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-bjp-700 transition">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Επικοινωνία</span>
+          </a>
+          <a href="tel:+302310000000" class="p-2 text-bjp-600 hover:bg-blue-50 rounded-lg" title="Τηλέφωνο">
+            <i class="fa-solid fa-phone text-lg"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- SIDE CATEGORY DRAWER (TOP-LEFT MENU) -->
+  <div id="drawerOverlay" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300"></div>
+  
+  <aside id="categoryDrawer" class="fixed top-0 left-0 bottom-0 w-80 sm:w-96 bg-white z-50 -translate-x-full drawer-transition shadow-2xl flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-5 bg-bjp-600 text-white flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-boxes-stacked text-xl text-amber-400"></i>
+        <div>
+          <h2 class="font-bold text-lg leading-tight">B.J.P Πλοήγηση</h2>
+          <p class="text-xs text-blue-200">Κατηγορίες & Πληροφορίες</p>
+        </div>
+      </div>
+      <button id="closeDrawer" class="text-blue-200 hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Navigation Items -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-6">
+      
+      <!-- Company Link -->
+      <div>
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Η Εταιρεία</h3>
+        <button id="openAboutModal" class="w-full text-left flex items-center justify-between p-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-bjp-600 font-semibold transition">
+          <span class="flex items-center gap-3">
+            <i class="fa-solid fa-building-columns"></i>
+            <span>Σχετικά με εμάς</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Categories List (Exact User Requested Names) -->
+      <div>
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Κατηγορίες Προϊόντων</h3>
+        <nav class="space-y-1">
+          <a href="#cat-laser" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-bolt text-bjp-600"></i>
+              <span>Laser</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+          <a href="#cat-epimetallosi" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-flask text-bjp-600"></i>
+              <span>Επιμετάλλωση</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+          <a href="#cat-gyalisma" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-gem text-bjp-600"></i>
+              <span>Γυάλισμα</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+          <a href="#cat-katharismos" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-soap text-bjp-600"></i>
+              <span>Καθαρισμός</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+          <a href="#cat-adamantodesia" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-microscope text-bjp-600"></i>
+              <span>Αδαμαντοδεσία - Χαρακτική</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+          <a href="#cat-analysi" class="drawer-close flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium transition">
+            <span class="flex items-center gap-3">
+              <i class="fa-solid fa-chart-line text-bjp-600"></i>
+              <span>Ανάλυση</span>
+            </span>
+            <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Drawer Footer Contact -->
+    <div class="p-4 border-t border-gray-200 bg-gray-50">
+      <p class="text-xs text-gray-500 mb-2 font-semibold">Τεχνική Υποστήριξη & Πληροφορίες</p>
+      <a href="tel:+302310000000" class="flex items-center gap-2 text-bjp-600 font-bold text-sm">
+        <i class="fa-solid fa-phone"></i>
+        <span>+30 2310 000000</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ABOUT US MODAL (POP-UP) -->
+  <div id="aboutModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
+      <div class="p-6 bg-bjp-600 text-white flex justify-between items-center sticky top-0">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-landmark text-amber-400 text-xl"></i>
+          <h2 class="text-xl font-bold">Σχετικά με την B.J.P</h2>
+        </div>
+        <button id="closeAboutModal" class="text-blue-200 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+      </div>
+      
+      <div class="p-6 sm:p-8 space-y-6">
+        <div class="border-b pb-4">
+          <h3 class="text-2xl font-extrabold text-bjp-600 mb-1">Basic Jewellery Products</h3>
+          <p class="text-sm text-gray-500">Ίδρυση: Ιανουάριος 1992 | Θεσσαλονίκη</p>
+        </div>
+
+        <p class="text-gray-700 leading-relaxed">
+          Η εταιρεία <strong>"B.J.P" (Basic Jewellery Products)</strong> ιδρύθηκε από τον Γεώργιο Παναγιωτίδη τον Ιανουάριο του 1992 με έδρα τη Θεσσαλονίκη.
+        </p>
+
+        <p class="text-gray-700 leading-relaxed">
+          Δραστηριοποιείται στον χώρο της αργυροχρυσοχοΐας με αντικείμενο τα μηχανήματα και τα αναλώσιμα των εργαστηρίων, προσφέροντας ολοκληρωμένες τεχνολογικές λύσεις υψηλής αξιοπιστίας.
+        </p>
+
+        <div class="bg-blue-50 p-5 rounded-xl border border-blue-100">
+          <h4 class="font-bold text-bjp-600 mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-amber-500"></i>
+            Πρωτοπορία & Τεχνολογικές Πρωτιές
+          </h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Πρωτοπόρα στην τεχνολογική ενημέρωση των αργυροχρυσοχόων, η B.J.P κατέχει πρωτιές στις επιδείξεις και εισαγωγές καινοτόμων μηχανημάτων στην ελληνική αγορά:
+          </p>
+          <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-bjp-600">
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 1995: Μαγνητικά Μηχανήματα
+            </li>
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 1996: LASER Συγκόλλησης
+            </li>
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 1996: Δισκοειδείς Μηχανές Λείανσης
+            </li>
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 2000: LASER Χάραξης & Κοπής
+            </li>
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 2011: Εξουσιοδοτημένη Αντιπροσωπεία GRS
+            </li>
+            <li class="bg-white p-2 rounded shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-check text-green-600"></i> 2014: Κεραμικό Υλικό HY CERAM
+            </li>
+          </ul>
+        </div>
+
+        <p class="text-gray-700 leading-relaxed">
+          Η εταιρεία βρίσκεται σε διαρκή επαφή με τις νέες τεχνολογίες τις οποίες προτίθεται να εισάγει στην ελληνική αγορά προκειμένου να καλύψει τις διαρκώς αυξανόμενες και εξελίξιμες ανάγκες στον τομέα της αργυροχρυσοχοΐας.
+        </p>
+
+        <p class="text-gray-700 leading-relaxed">
+          Παραμένει ενεργή στις εκθέσεις, καθώς συμμετέχει σε Ελλάδα και εξωτερικό με πολλές διακρίσεις (έπαινοι συμμετοχών <strong>KOSMIMA - Θεσσαλονίκη, Χρυσός & Ασήμι - Αθήνα, Novisad sajam - Σερβία, Κωνσταντινούπολη, Plovdiv - Βουλγαρία</strong>).
+        </p>
+
+        <div class="text-center pt-4 border-t">
+          <p class="font-bold text-bjp-600 italic">"Στοχεύοντας πάντα στην καλύτερη συνεργασία και ενημέρωσή σας συνεχίζουμε την προσπάθεια."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO BANNER -->
+  <section class="bg-gradient-to-r from-bjp-800 via-bjp-600 to-bjp-700 text-white py-16 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <span class="inline-block px-3 py-1 bg-amber-500 text-bjp-800 font-bold text-xs uppercase tracking-widest rounded-full mb-4">
+        Από το 1992 στη Θεσσαλονίκη
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+        Εξειδικευμένα Μηχανήματα & Αναλώσιμα Αργυροχρυσοχοΐας
+      </h1>
+      <p class="text-lg text-blue-100 max-w-3xl mx-auto mb-8 font-light">
+        Επίσημες αντιπροσωπείες κορυφαίων διεθνών οίκων (SISMA, ASEG Galloni, OTEC, GRS, ACZET, HY CERAM). Τεχνολογική υπεροχή και υποστήριξη για κάθε σύγχρονο εργαστήριο.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button id="heroOpenDrawer" class="bg-amber-500 hover:bg-amber-600 text-bjp-800 font-bold px-6 py-3 rounded-lg shadow-lg transition flex items-center gap-2">
+          <i class="fa-solid fa-list-ul"></i>
+          <span>Περιήγηση Κατηγοριών</span>
+        </button>
+        <a href="#featured" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 transition flex items-center gap-2">
+          <i class="fa-solid fa-star text-amber-400"></i>
+          <span>Δημοφιλή Μηχανήματα</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED MACHINERY SHOWCASE (SISMA, GALLONI, OTEC, ACZET, GRS) -->
+  <section id="featured" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b pb-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Εργαστηριακός Εξοπλισμός</span>
+        <h2 class="text-3xl font-extrabold text-bjp-600">Συστήματα SISMA, Galloni & OTEC</h2>
+      </div>
+      <p class="text-sm text-gray-500 mt-2 md:mt-0">Επιλεγμένα κορυφαία μοντέλα για συγκόλληση, χάραξη, χύτευση & γυάλισμα</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- SISMA WELDER -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">SISMA</span>
+          <span class="text-xs font-semibold text-gray-500">Laser Συγκόλλησης</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">SISMA LM-D Series</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Σύστημα LASER συγκόλλησης Nd:YAG. Ιδανικό για επισκευές, κάλυψη πόρων, αλυσίδες και σύνδεση πολύτιμων μετάλλων χωρίς αφαίρεση λίθων.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Ισχύς από 190J έως 300J</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Μικροσκόπιο Leica & ψηφιακή οθόνη αφής</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+      <!-- SISMA CUTTING & ENGRAVING -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">SISMA</span>
+          <span class="text-xs font-semibold text-gray-500">Laser Χάραξης & Κοπής</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">SISMA EASY / LOGO Fiber</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Συστήματα Fiber Laser για βαθιά χάραξη, σφραγίδες, 2D/3D μοτίβα, εσωτερική/εξωτερική χάραξη δαχτυλιδιών και κοπή ελασμάτων.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Υψηλή ταχύτητα & απόλυτη ακρίβεια</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Εξειδικευμένο λογισμικό για κόσμημα</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+      <!-- GALLONI PRESSOVAC -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">ASEG GALLONI</span>
+          <span class="text-xs font-semibold text-gray-500">Χύτευση</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Galloni PRESSOVAC (MAX)</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Επαγωγική μηχανή χύτευσης με διαφορική πίεση και κενό αέρος. Εγγυάται τέλεια χύτευση χρυσοχοΐας χωρίς πόρους σε χρυσό, ασήμι & πλατίνα.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Αυτόματος έλεγχος θερμοκρασίας</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Προστασία αδρανούς αερίου (Argon)</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+      <!-- GALLONI G-SERIES -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">ASEG GALLONI</span>
+          <span class="text-xs font-semibold text-gray-500">Επαγωγική Τήξη</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Galloni G-Series (G-Nova)</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Συστήματα επαγωγικής τήξης και χύτευσης μεγάλου όγκου παραγωγής για εργαστήρια και εργοστάσια παραγωγής κοσμημάτων.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Χωρητικότητα έως 4000g χρυσού 18K</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Μέγιστη ενεργειακή απόδοση</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+      <!-- OTEC EF-SMART -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">OTEC</span>
+          <span class="text-xs font-semibold text-gray-500">Γυάλισμα (Electro-Finishing)</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">OTEC EF-Smart / EF-Flex</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Μηχάνημα ηλεκτρο-φινιρίσματος για αυτόματο γυάλισμα εσωτερικών και δυσπρόσιτων σημείων σε πολύπλοκα κοσμήματα.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Διατήρηση οξειδωτικών λεπτομερειών</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Δραστική μείωση χειροκίνητης εργασίας</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+      <!-- OTEC ECO-MAXI -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition flex flex-col">
+        <div class="p-5 bg-gray-50 border-b flex justify-between items-center">
+          <span class="px-3 py-1 bg-blue-100 text-bjp-600 text-xs font-bold rounded-full">OTEC</span>
+          <span class="text-xs font-semibold text-gray-500">Γυάλισμα (Disc Finishing)</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">OTEC ECO-Maxi / CF Series</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Πολυμηχάνημα δισκοειδούς λείανσης 3-σε-1 (Μαγνητικό, Υγρό & Ξηρό γυάλισμα με καρυδότσουφλο) για καθαρή επιφάνεια.
+            </p>
+            <ul class="text-xs space-y-1.5 text-gray-600 mb-6">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Μηδενικό διάκενο (Zero-gap system)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Ιδανικό για λεπτά & ευαίσθητα τεμάχια</li>
+            </ul>
+          </div>
+          <a href="#contact" class="w-full text-center bg-bjp-600 hover:bg-bjp-700 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Ζητήστε Προσφορά
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRODUCT CATEGORIES GRID OVERVIEW (EXACT USER REQUESTED NAMES) -->
+  <section class="bg-gray-100 py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-bjp-600">Κατηγορίες Προϊόντων</h2>
+        <p class="text-gray-600 mt-2">Επιλέξτε κατηγορία για να δείτε τον διαθέσιμο εξοπλισμό</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+        
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Laser</h3>
+        </button>
+
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-flask"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Επιμετάλλωση</h3>
+        </button>
+
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-gem"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Γυάλισμα</h3>
+        </button>
+
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-soap"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Καθαρισμός</h3>
+        </button>
+
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-microscope"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Αδαμαντοδεσία - Χαρακτική</h3>
+        </button>
+
+        <button class="category-btn p-5 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200 text-center transition flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-bjp-600 flex items-center justify-center text-xl mb-3">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">Ανάλυση</h3>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER BRANDS SHOWCASE (BOTTOM) -->
+  <section class="py-12 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8">
+        Συνεργαζόμενες Εταιρείες & Επίσημες Αντιπροσωπείες
+      </h3>
+      
+      <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 opacity-85">
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">SISMA</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">GALLONI</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">OTEC</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">GRS</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">ACZET</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">HY CERAM</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">CAVALLIN</div>
+        <div class="px-4 py-2 border border-gray-200 rounded-lg font-black text-gray-700 tracking-wider text-lg hover:text-bjp-600 hover:border-bjp-600 transition">PUC VIGOR</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION & FOOTER -->
+  <footer id="contact" class="bg-bjp-dark text-white pt-12 pb-8 border-t border-gray-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800">
+        
+        <div>
+          <div class="text-2xl font-extrabold tracking-widest text-white font-serif mb-1">B.J.P</div>
+          <p class="text-xs text-gray-400 uppercase tracking-widest mb-4">Basic Jewellery Products</p>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Από το 1992 δίπλα στον Έλληνα αργυροχρυσοχόο με μηχανήματα και αναλώσιμα εργαστηρίου υψηλής τεχνολογίας.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-amber-400 mb-4">Επικοινωνία</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-location-dot text-amber-400"></i>
+              <span>Έδρα: Θεσσαλονίκη, Ελλάδα</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-amber-400"></i>
+              <span>Τηλ: +30 2310 000000</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-amber-400"></i>
+              <span>Email: info@bjp.gr</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-amber-400 mb-4">Πληροφορίες</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><button id="footerAboutBtn" class="hover:underline">Σχετικά με εμάς</button></li>
+            <li><a href="#featured" class="hover:underline">Δημοφιλή Μηχανήματα</a></li>
+            <li><a href="#" class="hover:underline">Τεχνική Υποστήριξη</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-6 text-center text-xs text-gray-500">
+        © 1992 - 2026 B.J.P - Basic Jewellery Products. Με την επιφύλαξη παντός δικαιώματος.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Drawer Logic
+    const drawer = document.getElementById('categoryDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const openBtn = document.getElementById('openDrawer');
+    const heroOpenBtn = document.getElementById('heroOpenDrawer');
+    const closeBtn = document.getElementById('closeDrawer');
+    const drawerCloseLinks = document.querySelectorAll('.drawer-close');
+
+    function openDrawer() {
+      drawer.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+      setTimeout(() => overlay.classList.add('opacity-100'), 10);
+    }
+
+    function closeDrawer() {
+      drawer.classList.add('-translate-x-full');
+      overlay.classList.remove('opacity-100');
+      setTimeout(() => overlay.classList.add('hidden'), 300);
+    }
+
+    openBtn.addEventListener('click', openDrawer);
+    if(heroOpenBtn) heroOpenBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    drawerCloseLinks.forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    // About Us Modal Logic
+    const aboutModal = document.getElementById('aboutModal');
+    const openAboutModalBtn = document.getElementById('openAboutModal');
+    const closeAboutModalBtn = document.getElementById('closeAboutModal');
+    const footerAboutBtn = document.getElementById('footerAboutBtn');
+
+    function openAboutModal() {
+      closeDrawer();
+      aboutModal.classList.remove('hidden');
+    }
+
+    function closeAboutModal() {
+      aboutModal.classList.add('hidden');
+    }
+
+    openAboutModalBtn.addEventListener('click', openAboutModal);
+    if(footerAboutBtn) footerAboutBtn.addEventListener('click', openAboutModal);
+    closeAboutModalBtn.addEventListener('click', closeAboutModal);
+
+    aboutModal.addEventListener('click', (e) => {
+      if (e.target === aboutModal) closeAboutModal();
+    });
+
+    // Category Buttons open Drawer
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', openDrawer);
+    });
+  </script>
+</body>
+</html>
